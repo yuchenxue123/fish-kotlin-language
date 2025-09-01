@@ -76,7 +76,11 @@ tasks.jar {
             if (it.isDirectory) it else zipTree(it)
         }
     }) {
-        exclude("META-INF/")
+        exclude("LICENSE.txt")
+        exclude("META-INF/maven/**")
+        exclude("META-INF/versions/**")
+
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     }
 }
 
