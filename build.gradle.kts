@@ -82,6 +82,10 @@ tasks.jar {
 
         duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     }
+
+    from(arrayOf("LICENSE.txt", "NOTICE.txt")) {
+        into("META-INF/")
+    }
 }
 
 tasks.withType<JavaCompile> {
