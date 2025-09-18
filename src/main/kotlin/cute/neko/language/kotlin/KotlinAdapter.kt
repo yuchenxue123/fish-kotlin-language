@@ -28,11 +28,6 @@ import kotlin.reflect.full.memberFunctions
 import kotlin.reflect.jvm.javaMethod
 import kotlin.reflect.jvm.jvmErasure
 
-/**
- * @author yuchenxue
- * @date 2025/09/01
- */
-
 @Suppress("unused")
 class KotlinAdapter : LanguageAdapter {
 
