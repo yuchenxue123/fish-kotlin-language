@@ -6,7 +6,7 @@
 	"description": "${description}",
 	"authors": ["yuchenxue"],
 	"depends": {
-		"fishmodloader": ">=3.2.1"
+		"fishmodloader": ">=3.4.1"
 	},
 	"environment": "*",
 	"entrypoints": {
