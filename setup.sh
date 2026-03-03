@@ -3,7 +3,8 @@
 GRADLE_HOME="${GRADLE_USER_HOME:-$HOME/.gradle}"
 SOURCE_FILE="mite/mite.jar"
 TARGET_DIR="$GRADLE_HOME/caches/fml-loom/1.6.4-MITE"
-TARGET_FILENAME="1.6.4-MITE+R196.jar"
+# In loom 0.1, it's "1.6.4-MITE.jar"
+TARGET_FILENAME="1.6.4-MITE.jar"
 
 mkdir -p "$TARGET_DIR"
 
