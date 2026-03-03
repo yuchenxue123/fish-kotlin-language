@@ -9,7 +9,9 @@ val mod_name: String by project
 val mod_version: String by project
 val mod_id: String by project
 
-version = "$mod_version+kotlin.${libs.versions.kotlin.get()}"
+val kv = libs.versions.kotlin.get().replace(".", "")
+
+version = "$mod_version.$kv"
 
 base {
     archivesName = mod_id
@@ -40,10 +42,10 @@ dependencies {
 }
 
 tasks.processResources {
-    inputs.property("version", project.version)
+    inputs.property("version", mod_version)
 
     filesMatching("fml.mod.json") {
-        expand("version" to project.version)
+        expand("version" to mod_version)
     }
 }
 
