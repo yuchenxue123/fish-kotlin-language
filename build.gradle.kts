@@ -1,38 +1,27 @@
-import java.util.Properties
-
 plugins {
-    kotlin("jvm")
-    id("fml-loom")
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.fml)
+    alias(libs.plugins.quick)
     id("maven-publish")
 }
 
-// Mod Info
 val mod_name: String by project
-val mod_id: String by project
 val mod_version: String by project
-val mod_description: String by project
-// Loader
-val loader_version: String by project
-val minecraft_version: String by project
-// Dependencies
-val kotlin_version: String by project
+val mod_id: String by project
 
-version = "$mod_version+kotlin.$kotlin_version"
+version = "$mod_version+kotlin.${libs.versions.kotlin.get()}"
 
 base {
-    archivesName = mod_name
+    archivesName = mod_id
 }
 
 repositories {
-    maven {
-        name = "Jitpack"
-        url = uri("https://jitpack.io")
-    }
+    maven("https://jitpack.io")
 }
 
 loom {
     mergedMinecraftJar()
-    fml = File("libs/loader-$loader_version.jar")
+    fml = File("loader/loader-3.4.2.jar")
 
     mods {
         create(mod_name) {
@@ -41,110 +30,40 @@ loom {
     }
 }
 
-val packageImplementation = configurations.register("packageImplementation") {
-    configurations.implementation.get().extendsFrom(this)
-}
-
-fun DependencyHandler.packageImplementation(dependencyNotation: Any) {
-    add("packageImplementation", dependencyNotation)
-}
-
 dependencies {
-    minecraft("com.mojang:minecraft:$minecraft_version")
+    minecraft("Minecraft:IsTooEasy:1.6.4-MITE")
     mappings(loom.fmlMCPMappings())
     implementation(files(loom.fml.toPath()))
 
-    packageImplementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
-    packageImplementation("org.jetbrains.kotlin:kotlin-reflect:$kotlin_version")
+    pkg(libs.kotlin.stdlib)
+    pkg(libs.kotlin.reflect)
 }
-
-val properties = mapOf(
-    "id" to mod_id,
-    "name" to mod_name,
-    "version" to mod_version,
-    "description" to mod_description
-)
 
 tasks.processResources {
-    inputs.property("version", mod_version)
+    inputs.property("version", project.version)
 
     filesMatching("fml.mod.json") {
-        expand(properties)
+        expand("version" to project.version)
     }
-}
-
-tasks.jar {
-    from({
-        packageImplementation.get().map {
-            if (it.isDirectory) it else zipTree(it)
-        }
-    }) {
-        exclude("LICENSE.txt")
-        exclude("META-INF/maven/**")
-        exclude("META-INF/versions/**")
-
-        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    }
-
-    from(arrayOf("LICENSE.txt", "NOTICE.txt")) {
-        into("META-INF/")
-    }
-}
-
-tasks.withType<JavaCompile> {
-    options.encoding = "UTF-8"
-    options.release.set(17)
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    withSourcesJar()
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
 }
 
 kotlin {
-    compilerOptions {
-        jvmToolchain(17)
+    jvmToolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
-
-// publish to gitlab, you can delete this.
-
-val config = Properties().apply {
-    val file = file("config.properties")
-    if (file.exists()) {
-        file.inputStream().use { load(it) }
-    }
-}
-
-val maven_name: String by project
-val maven_group: String by project
 
 publishing {
     publications {
-        create<MavenPublication>("maven") {
+        create<MavenPublication>("mavenJava") {
             from(components["java"])
-
-            groupId = maven_group
-            artifactId = maven_name
-            version = mod_version
-        }
-    }
-
-    repositories {
-        maven {
-            url = uri("https://gitlab.com/api/v4/projects/74192719/packages/maven")
-
-            val private_token: String = config.getProperty("private_token") ?: ""
-
-            credentials(HttpHeaderCredentials::class) {
-                name = "Private-Token"
-                value = private_token
-            }
-
-            authentication {
-                create<HttpHeaderAuthentication>("header")
-            }
         }
     }
 }
-

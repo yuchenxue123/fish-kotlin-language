@@ -1,9 +1,9 @@
 {
 	"schemaVersion": 1,
-	"id": "${id}",
-	"name": "${name}",
+	"id": "fish-language-kotlin",
+	"name": "Fish Language Kotlin",
 	"version": "${version}",
-	"description": "${description}",
+	"description": "Fish language adapter for Kotlin",
 	"authors": ["yuchenxue"],
 	"depends": {
 		"fishmodloader": ">=3.4.1"
