@@ -42,10 +42,10 @@ dependencies {
 }
 
 tasks.processResources {
-    inputs.property("version", mod_version)
+    inputs.property("version", project.version)
 
     filesMatching("fml.mod.json") {
-        expand("version" to mod_version)
+        expand("version" to project.version)
     }
 }
 
