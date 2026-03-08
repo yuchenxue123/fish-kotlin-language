@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cute.neko.language.kotlin
+package fish.language.kotlin
 
 import net.fabricmc.loader.api.LanguageAdapter
 import net.fabricmc.loader.api.LanguageAdapterException

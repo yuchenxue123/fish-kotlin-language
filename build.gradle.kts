@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.kotlin.jvm)
-    alias(libs.plugins.fml)
+    alias(libs.plugins.fml.loom)
     alias(libs.plugins.quick)
     id("maven-publish")
 }
@@ -9,7 +9,14 @@ val mod_name: String by project
 val mod_version: String by project
 val mod_id: String by project
 
-val kv = libs.versions.kotlin.get().replace(".", "")
+// JitPack cannot recognize tags like 1.1.3+kotlin.2.3.10,
+// so here we use sub-version numbers like 2310 instead.
+val kv = libs.versions.kotlin.get()
+    .split(".")
+    .map { it.toInt() }
+    // 2.10.10 or 2.1.100 ?
+    .zip(listOf(1000, 100, 1))
+    .sumOf { (k, v) -> k * v }
 
 version = "$mod_version.$kv"
 
@@ -39,6 +46,7 @@ dependencies {
 
     pkg(libs.kotlin.stdlib)
     pkg(libs.kotlin.reflect)
+    pkg(libs.kotlinx.coroutines)
 }
 
 tasks.processResources {

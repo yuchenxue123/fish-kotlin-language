@@ -1,13 +1,13 @@
 [versions]
+# Kotlin
 kotlin = "2.3.10"
 coroutines = "1.10.2"
 detekt = "1.23.8"
+
 quick = "0.1"
 
-fml = "0.1"
-fish-kotlin = "1.0.1"
-kawakaze = "1.1.1"
-
+# Fish
+fml-loom = "0.1"
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
@@ -15,16 +15,13 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 
 quick = { id = "io.github.yukiminju.plugin.quick", version.ref = "quick" }
-fml = { id = "fml-loom", version.ref = "fml" }
+fml-loom = { id = "fml-loom", version.ref = "fml-loom" }
 
 [libraries]
 # kotlin
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
 kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
-# mods
-kotlinLanguage = { group = "cute.neko.mite", name = "kotlin-language", version.ref = "fish-kotlin" }
-kawakazeLib = { group = "cute.neko.mite", name ="kawakaze-lib", version.ref = "kawakaze" }
 
 [bundles]
 kotlins = ["kotlin-stdlib", "kotlin-reflect", "kotlinx-coroutines"]

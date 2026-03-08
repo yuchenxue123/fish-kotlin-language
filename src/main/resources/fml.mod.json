@@ -1,21 +1,24 @@
 {
-	"schemaVersion": 1,
-	"id": "fish-language-kotlin",
-	"name": "Fish Language Kotlin",
-	"version": "${version}",
-	"description": "Fish language adapter for Kotlin",
-	"authors": ["yuchenxue"],
-	"depends": {
-		"fishmodloader": ">=3.4.1"
-	},
-	"environment": "*",
-	"entrypoints": {
-		"main": [
-        ]
-	},
-    "languageAdapters": {
-      "kotlin": "cute.neko.language.kotlin.KotlinAdapter"
-    },
-	"mixins": [
-	]
+  "schemaVersion": 1,
+  "id": "fish-language-kotlin",
+  "name": "Fish Language Kotlin",
+  "version": "${version}",
+  "description": "Fish language adapter for Kotlin",
+  "icon": "assets/fish-language-kotlin/icon.png",
+  "authors": [
+    "yuchenxue"
+  ],
+  "depends": {
+    "fishmodloader": ">=3.4.1"
+  },
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+    ]
+  },
+  "languageAdapters": {
+    "kotlin": "fish.language.kotlin.KotlinAdapter"
+  },
+  "mixins": [
+  ]
 }
