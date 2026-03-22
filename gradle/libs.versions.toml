@@ -5,6 +5,7 @@ coroutines = "1.10.2"
 detekt = "1.23.8"
 
 quick = "0.1"
+shadow = "9.2.2"
 
 # Fish
 fml-loom = "0.1"
@@ -15,6 +16,9 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 
 quick = { id = "io.github.yukiminju.plugin.quick", version.ref = "quick" }
+
+shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
+
 fml-loom = { id = "fml-loom", version.ref = "fml-loom" }
 
 [libraries]
